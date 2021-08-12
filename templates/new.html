@@ -7,6 +7,15 @@
 <body>
 Создание новой задачи
 <br>
+    <form action="{{ url_for('new_task') }}" method=post>
+      <dl>
+        <dt>Введите описание задачи:
+          <dd><textarea name=task_text rows=5 cols=50 required></textarea>
+        <dd><input type=submit value=Создать>
+      </dl>
+    </form>
+<br>
+<a href="{{ url_for('open')}}">Новые</a>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
 </body>

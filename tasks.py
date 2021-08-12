@@ -1,5 +1,6 @@
-from flask import Flask, render_template, Flask, request, session, g, redirect, url_for, abort, render_template, flash
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String
+from flask import Flask, request, session, redirect, url_for, render_template
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, select, func
+import datetime
 
 engine = create_engine('sqlite:///tasks.db', echo=True)
 meta = MetaData()
@@ -8,6 +9,15 @@ users = Table('users', meta,
               Column('password', String),
               )
 
+tasks = Table('tasks', meta,
+    Column('id', Integer, primary_key = True),
+    Column('task', String),
+    Column('status', String),
+    Column('fio', String),
+    Column('create', DateTime),
+    Column('work', DateTime),
+    Column('comlete', DateTime),
+)
 app = Flask(__name__)
 app.config.from_object(__name__)
 
@@ -74,6 +84,22 @@ def arhiv():
 def new():
     if session.get('logged_in'):
         return render_template('new.html')
+    else:
+        return render_template('login.html')
+
+@app.route('/new_task', methods=['POST'])
+def new_task():
+    if session.get('logged_in'):
+        print(request.form['task_text'])
+        conn = engine.connect()
+        s = select([func.count()]).select_from(tasks)
+        result = conn.execute(s)
+        ids = result.fetchone()[0]
+        print(ids)
+        conn = engine.connect()
+        conn.execute(tasks.insert().values(id = ids +1, task = request.form['task_text'], status = 'Новая',
+                                           fio = '', create = datetime.datetime.now()))
+        return render_template('show.html')
     else:
         return render_template('login.html')
 

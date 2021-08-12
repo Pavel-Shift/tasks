@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Table, Integer, String, Column, DateTime, MetaData
+from sqlalchemy import create_engine, Table, Integer, String, Column, DateTime, MetaData, func, select
 
 engine = create_engine('sqlite:///tasks.db')
 
@@ -19,11 +19,25 @@ users = Table('users', meta,
     Column('password', String),
 )
 
-meta.create_all(engine)
-
 conn = engine.connect()
-conn.execute( users.insert(),[
-    {'login':'Ivanov', 'password':'11082021'},
-    {'login':'Petrov', 'password':'12082021'},
-    {'login':'Sidorov', 'password':'13082021'},
-])
+
+s = tasks.select()
+result = conn.execute(s)
+
+for row in result:
+   print (row)
+
+print('')
+
+s = select([func.count()]).select_from(tasks)
+result = conn.execute(s)
+
+print(result.fetchone()[0] )
+
+print('')
+s = users.select()
+
+result = conn.execute(s)
+
+for row in result:
+   print (row)
