@@ -5,7 +5,22 @@
     <title>Архив задач</title>
 </head>
 <body>
-Выполенные или отмененные задачи
+<br>
+<br>
+<table>
+  <table border="1">
+   <caption>Выполенные или отмененные задачи</caption>
+   <tr>
+    <th>ID</th>
+    <th>Задача</th>
+    <th>Статус</th>
+    <th>Исполнитель</th>
+   </tr>
+{% for task in tasks_arhiv %}
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.fio }} </td>
+</tr>
+{% endfor %}
+</table>
 <br>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>

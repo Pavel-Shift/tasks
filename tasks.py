@@ -52,36 +52,23 @@ def logout():
     session.pop('logged_in', None)
     return render_template('login.html')
 
+def stat(task_status):
+    conn = engine.connect()
+    s = tasks.select().where(tasks.c.status == task_status)
+    return  len(conn.execute(s).fetchall())
+
 @app.route('/show')
 def show():
     if session.get('logged_in'):
         conn = engine.connect()
-        s = select([func.count()]).select_from(tasks)
-        result = conn.execute(s)
-        ids = result.fetchone()[0]
+        s = tasks.select()
+        ids = len(conn.execute(s).fetchall())
 
-        conn = engine.connect()
-        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'Новая')
-        result = conn.execute(s)
-        ids_new = result.fetchone()[0]
-
-        conn = engine.connect()
-        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'В работе')
-        result = conn.execute(s)
-        ids_work = result.fetchone()[0]
-
-        conn = engine.connect()
-        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'Выполнена')
-        result = conn.execute(s)
-        ids_complete = result.fetchone()[0]
-
-        conn = engine.connect()
-        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'Выполнена' or tasks.c.status == 'Отменено')
-        result = conn.execute(s)
-        ids_cancel = result.fetchone()[0]
-
+        ids_new = stat('Новая')
+        ids_work = stat('В работе')
+        ids_complete = stat('Выполнена')
+        ids_cancel = stat('Отменена')
         ids_arhiv = ids_complete + ids_cancel
-
         time = 1.5
 
         return render_template('show.html', ids = ids, ids_new = ids_new, ids_work = ids_work, ids_arhiv = ids_arhiv,
@@ -92,21 +79,30 @@ def show():
 @app.route('/open')
 def open():
     if session.get('logged_in'):
-        return render_template('open.html')
+        conn = engine.connect()
+        s = tasks.select().where(tasks.c.status == 'Новая')
+        tasks_open = conn.execute(s)
+        return render_template('open.html', tasks_open = tasks_open )
     else:
         return render_template('login.html')
 
 @app.route('/work')
 def work():
     if session.get('logged_in'):
-        return render_template('work.html')
+        conn = engine.connect()
+        s = tasks.select().where(tasks.c.status == 'В работе')
+        tasks_work = conn.execute(s)
+        return render_template('work.html', tasks_work = tasks_work )
     else:
         return render_template('login.html')
 
 @app.route('/arhiv')
 def arhiv():
     if session.get('logged_in'):
-        return render_template('arhiv.html')
+        conn = engine.connect()
+        s = tasks.select().where(tasks.c.status == 'Выполнена' or tasks.c.status == 'Отменена')
+        tasks_arhiv = conn.execute(s)
+        return render_template('arhiv.html', tasks_arhiv = tasks_arhiv)
     else:
         return render_template('login.html')
 
@@ -129,7 +125,7 @@ def new_task():
         conn = engine.connect()
         conn.execute(tasks.insert().values(id = ids +1, task = request.form['task_text'], status = 'Новая',
                                            fio = '', create = datetime.datetime.now()))
-        return render_template('show.html')
+        return redirect(url_for('show'))
     else:
         return render_template('login.html')
 

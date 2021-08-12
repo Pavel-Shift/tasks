@@ -5,13 +5,26 @@
     <title>Новые задачи</title>
 </head>
 <body>
-Новые задачи, не взятые в работу
+
 <br>
+<br>
+<table>
+  <table border="1">
+   <caption>Новые задачи, не взятые в работу</caption>
+   <tr>
+    <th>ID</th>
+    <th>Задача</th>
+    <th>Статус</th>
+    <th>Исполнитель</th>
+   </tr>
+{% for task in tasks_open %}
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.fio }} </td>
+</tr>
+{% endfor %}
+</table>
 <br>
 <a href="{{ url_for('new')}}">Создать задачу</a>
 <br>
-<br>
-<a href="{{ url_for('open')}}">Новые</a>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
 </body>
