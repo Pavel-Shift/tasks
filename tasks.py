@@ -55,7 +55,37 @@ def logout():
 @app.route('/show')
 def show():
     if session.get('logged_in'):
-        return render_template('show.html')
+        conn = engine.connect()
+        s = select([func.count()]).select_from(tasks)
+        result = conn.execute(s)
+        ids = result.fetchone()[0]
+
+        conn = engine.connect()
+        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'Новая')
+        result = conn.execute(s)
+        ids_new = result.fetchone()[0]
+
+        conn = engine.connect()
+        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'В работе')
+        result = conn.execute(s)
+        ids_work = result.fetchone()[0]
+
+        conn = engine.connect()
+        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'Выполнена')
+        result = conn.execute(s)
+        ids_complete = result.fetchone()[0]
+
+        conn = engine.connect()
+        s = select([func.count()]).select_from(tasks).where(tasks.c.status == 'Выполнена' or tasks.c.status == 'Отменено')
+        result = conn.execute(s)
+        ids_cancel = result.fetchone()[0]
+
+        ids_arhiv = ids_complete + ids_cancel
+
+        time = 1.5
+
+        return render_template('show.html', ids = ids, ids_new = ids_new, ids_work = ids_work, ids_arhiv = ids_arhiv,
+                               ids_complete = ids_complete, ids_cancel = ids_cancel, time = time )
     else:
         return render_template('login.html')
 
