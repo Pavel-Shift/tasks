@@ -45,5 +45,21 @@ def show():
     else:
         return render_template('login.html')
 
+@app.route('/open')
+def open():
+    return render_template('open.html')
+
+@app.route('/work')
+def work():
+    return render_template('work.html')
+
+@app.route('/arhiv')
+def arhiv():
+    return render_template('arhiv.html')
+
+@app.route('/new')
+def new():
+    return render_template('new.html')
+
 if __name__ == '__main__':
     app.run()

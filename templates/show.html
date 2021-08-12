@@ -1,1 +1,14 @@
-Страница с данными
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика по задачам</title>
+</head>
+<body>
+  <ul class="sidebar-nav">
+     <li><a href="{% url 'add' %}">Новые</a></li>
+     <li><a href="{% url 'list' %}">В работе</a></li>
+     <li><a href="{% url 'main' %}">Архив</a></li>
+  </ul>
+</body>
+</html>
