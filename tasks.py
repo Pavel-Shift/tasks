@@ -1,5 +1,5 @@
 from flask import Flask, request, session, redirect, url_for, render_template
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, select, func
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime
 import datetime
 
 engine = create_engine('sqlite:///tasks.db', echo=True)
@@ -57,13 +57,15 @@ def stat(task_status):
     s = tasks.select().where(tasks.c.status == task_status)
     return  len(conn.execute(s).fetchall())
 
+def count():
+    conn = engine.connect()
+    s = tasks.select()
+    return len(conn.execute(s).fetchall())
+
 @app.route('/show')
 def show():
     if session.get('logged_in'):
-        conn = engine.connect()
-        s = tasks.select()
-        ids = len(conn.execute(s).fetchall())
-
+        ids = count()
         ids_new = stat('Новая')
         ids_work = stat('В работе')
         ids_complete = stat('Выполнена')
@@ -116,12 +118,7 @@ def new():
 @app.route('/new_task', methods=['POST'])
 def new_task():
     if session.get('logged_in'):
-        print(request.form['task_text'])
-        conn = engine.connect()
-        s = select([func.count()]).select_from(tasks)
-        result = conn.execute(s)
-        ids = result.fetchone()[0]
-        print(ids)
+        ids = count()
         conn = engine.connect()
         conn.execute(tasks.insert().values(id = ids +1, task = request.form['task_text'], status = 'Новая',
                                            fio = '', create = datetime.datetime.now()))
