@@ -6,9 +6,10 @@
 </head>
 <body>
   <ul class="sidebar-nav">
-     <li><a href="{% url 'add' %}">Новые</a></li>
-     <li><a href="{% url 'list' %}">В работе</a></li>
-     <li><a href="{% url 'main' %}">Архив</a></li>
+     <li><a href="{{ url_for('open') }}">Новые</a></li>
+     <li><a href="{{ url_for('work') }}">В работе</a></li>
+     <li><a href="{{ url_for('arhiv')}}">Архив</a></li>
   </ul>
+<a href="{{ url_for('logout')}}">Выход</a>
 </body>
 </html>

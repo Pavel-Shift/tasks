@@ -31,15 +31,19 @@ def login():
     error = None
     if request.method == 'POST':
         if auth(request.form['username'], request.form['password'])==0:
-            error = 'Invalid username or password'
+            error = 'Неверный пользователь или пароль'
         else:
             session['logged_in'] = True
             return redirect(url_for('show'))
     return render_template('login.html', error=error)
 
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return render_template('login.html')
+
 @app.route('/show')
 def show():
-    print(session.get('logged_in'))
     if session.get('logged_in'):
         return render_template('show.html')
     else:
@@ -47,19 +51,31 @@ def show():
 
 @app.route('/open')
 def open():
-    return render_template('open.html')
+    if session.get('logged_in'):
+        return render_template('open.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/work')
 def work():
-    return render_template('work.html')
+    if session.get('logged_in'):
+        return render_template('work.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/arhiv')
 def arhiv():
-    return render_template('arhiv.html')
+    if session.get('logged_in'):
+        return render_template('arhiv.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/new')
 def new():
-    return render_template('new.html')
+    if session.get('logged_in'):
+        return render_template('new.html')
+    else:
+        return render_template('login.html')
 
 if __name__ == '__main__':
     app.run()
