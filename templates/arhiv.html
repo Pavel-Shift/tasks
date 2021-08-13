@@ -22,7 +22,7 @@
    </tr>
 {% for task in tasks_arhiv %}
 <tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.fio }} </td>
-    <td>{{ task.create }} </td> <td>{{ task.work }} </td> <td>{{ task.complete }} </td>
+    <td>{{ task.create.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.work.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.complete.strftime('%d.%m.%Y %H:%M') }} </td>
 </tr>
 {% endfor %}
 </table>
