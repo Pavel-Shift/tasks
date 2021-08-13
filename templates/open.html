@@ -5,7 +5,7 @@
     <title>Новые задачи</title>
 </head>
 <body>
-
+Пользователь:  {{login}}
 <br>
 <br>
 <table>
@@ -15,13 +15,23 @@
     <th>ID</th>
     <th>Задача</th>
     <th>Статус</th>
-    <th>Исполнитель</th>
+    <th>Создание</th>
+       <th>Взять в работу</th>
    </tr>
 {% for task in tasks_open %}
-<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.fio }} </td>
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td>{{ task.create }} </td>
+    <td>
+     <form action="/in_work" method="post">
+     <button name="in_work" type="submit" value={{ task.id }}>В работу</button>
+    </form>
+ </td>
+
 </tr>
 {% endfor %}
 </table>
+
+
+
 <br>
 <a href="{{ url_for('new')}}">Создать задачу</a>
 <br>

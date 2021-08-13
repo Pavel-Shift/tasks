@@ -5,6 +5,8 @@
     <title>Задачи в работе</title>
 </head>
 <body>
+Пользователь:  {{login}}
+<br>
 <br>
 <table>
   <table border="1">
@@ -14,9 +16,26 @@
     <th>Задача</th>
     <th>Статус</th>
     <th>Исполнитель</th>
+       <th>Создание</th>
+       <th>Взято в работу</th>
+       <th>Выполнить</th>
+       <th>Отменить</th>
+
    </tr>
-{% for task in tasks_open %}
-<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.fio }} </td>
+{% for task in tasks_work %}
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td>
+    <td> {{ task.fio }} </td> <td>{{ task.create }} </td> <td>{{ task.work }} </td>
+
+<td>
+     <form action="/in_complete" method="post">
+     <button name="in_complete" type="submit" value={{ task.id }}>Выполнено</button>
+</form>
+ </td>
+    <td>
+     <form action="/in_cancel" method="post">
+     <button name="in_cancel" type="submit" value={{ task.id }}>Отмена</button>
+</form>
+ </td>
 </tr>
 {% endfor %}
 </table>
