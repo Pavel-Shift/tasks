@@ -27,14 +27,18 @@
     <td> {{ task.fio }} </td> <td>{{ task.create }} </td> <td>{{ task.work }} </td>
 
 <td>
+     {% if login== task.fio  %}
      <form action="/in_complete" method="post">
      <button name="in_complete" type="submit" value={{ task.id }}>Выполнено</button>
-</form>
- </td>
+    </form>
+    {% endif %}
+</td>
     <td>
+        {% if login== task.fio  %}
      <form action="/in_cancel" method="post">
      <button name="in_cancel" type="submit" value={{ task.id }}>Отмена</button>
 </form>
+        {% endif %}
  </td>
 </tr>
 {% endfor %}

@@ -11,7 +11,7 @@ tasks = Table('tasks', meta,
     Column('fio', String),
     Column('create', DateTime),
     Column('work', DateTime),
-    Column('comlete', DateTime),
+    Column('complete', DateTime),
 )
 
 users = Table('users', meta,
