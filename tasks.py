@@ -67,13 +67,14 @@ def average():
     conn = engine.connect()
     s = tasks.select().where(tasks.c.status == 'Выполнена')
     tasks_complete = conn.execute(s)
-    aver = datetime.timedelta(days=0)
+    aver = 0
     n_task = 0
     for task in tasks_complete:
-        aver = aver + task.complete - task.create
+        aver = aver + task.complete.timestamp() - task.create.timestamp()
         n_task = n_task +1
     aver = aver / n_task
-    return aver
+    print(aver)
+    return aver // 60
 
 @app.route('/show')
 def show():
