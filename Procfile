@@ -1,1 +1,1 @@
-web: gunicorn tasks.py:app
+web: gunicorn tasks:app --log-file=-
