@@ -1,6 +1,15 @@
 from sqlalchemy import create_engine, Table, Integer, String, Column, DateTime, MetaData
+import psycopg2
 
-engine = create_engine('sqlite:///tasks.db')
+#engine = create_engine('sqlite:///tasks.db')
+
+#con = psycopg2.connect(dbname='d297cli1t1889p', user='xcnhbtjxnnbfuu',
+#                       password='4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d',
+#                       host='ec2-34-255-134-200.eu-west-1.compute.amazonaws.com')
+
+#('postgresql://scott:tiger@localhost:5432/mydatabase')
+
+engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
 
 meta = MetaData()
 
@@ -23,7 +32,9 @@ meta.create_all(engine)
 
 conn = engine.connect()
 conn.execute( users.insert(),[
-    {'login':'Ivanov', 'password':'11082021'},
-    {'login':'Petrov', 'password':'12082021'},
-    {'login':'Sidorov', 'password':'13082021'},
+    {'login':'Глотов', 'password':'a12345678'},
+    {'login':'Князев', 'password':'a12345678'},
+    {'login':'Вагин', 'password':'a12345678'},
+    {'login':'Ислямов', 'password':'a12345678'},
+    {'login':'Котов', 'password':'a12345678'},
 ])
