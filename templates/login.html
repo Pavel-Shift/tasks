@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <body>
 {% block body %}
-  <h2>Вход в управление задачами</h2>
+  <h2>Вход в управление</h2>
   {% if error %}<p class=error><strong>Ошибка:</strong> {{ error }}{% endif %}
   <form action="{{ url_for('login') }}" method=post>
     <dl>

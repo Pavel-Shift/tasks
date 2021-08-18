@@ -74,7 +74,10 @@ def average():
     for task in tasks_complete:
         aver = aver + task.complete.timestamp() - task.create.timestamp()
         n_task = n_task +1
-    aver = aver / n_task
+    if n_task > 0:
+        aver = aver / n_task
+    else:
+        aver = 0
     print(aver)
     return aver // 60
 
