@@ -46,7 +46,8 @@ def login():
             session['logged_in'] = True
             session['login'] = request.form['username']
             return redirect(url_for('show'))
-    return render_template('login.html', error=error)
+    return json.dumps('login.html', error=error)
+    #return render_template('login.html', error=error)
 
 @app.route('/logout')
 def logout():
