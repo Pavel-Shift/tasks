@@ -19,6 +19,7 @@ tasks = Table('tasks', meta,
     Column('create', DateTime),
     Column('work', DateTime),
     Column('complete', DateTime),
+    Column('done', String),
 )
 app = Flask(__name__)
 app.config.from_object(__name__)

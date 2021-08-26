@@ -13,6 +13,7 @@ engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed
 
 meta = MetaData()
 
+
 tasks = Table('tasks', meta,
     Column('id', Integer, primary_key = True),
     Column('task', String),
@@ -21,7 +22,22 @@ tasks = Table('tasks', meta,
     Column('create', DateTime),
     Column('work', DateTime),
     Column('complete', DateTime),
+    Column('done', String),
 )
+
+works = Table('works', meta,
+    Column('id', Integer, primary_key = True),
+    Column('fio', String),
+    Column('date_work', DateTime),
+    Column('hour_start', DateTime),
+    Column('hour_end', DateTime),
+    Column('comment', String),
+    Column('status', String),
+    Column('done', String),
+    Column('create', DateTime),
+    Column('work', DateTime),
+    Column('complete', DateTime),
+              )
 
 users = Table('users', meta,
     Column('login', String, primary_key = True),
@@ -33,6 +49,7 @@ meta.create_all(engine)
 conn = engine.connect()
 conn.execute( users.insert(),[
     {'login':'Глотов', 'password':'a12345678'},
+    {'login':'Аслуева', 'password':'a12345678'},
     {'login':'Князев', 'password':'a12345678'},
     {'login':'Вагин', 'password':'a12345678'},
     {'login':'Ислямов', 'password':'a12345678'},
