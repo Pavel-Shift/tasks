@@ -15,14 +15,16 @@
     <th>ID</th>
     <th>Задача</th>
     <th>Статус</th>
+    <th>Решение</th>
     <th>Исполнитель</th>
        <th>Создание</th>
        <th>Взято в работу</th>
        <th>Завершено</th>
    </tr>
 {% for task in tasks_arhiv %}
-<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.fio }} </td>
-    <td>{{ task.create.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.work.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.complete.strftime('%d.%m.%Y %H:%M') }} </td>
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.work }} </td>
+     <td> {{ task.fio }} </td> <td>{{ task.create.strftime('%d.%m.%Y %H:%M') }} </td>
+    <td>{{ task.work.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.complete.strftime('%d.%m.%Y %H:%M') }} </td>
 </tr>
 {% endfor %}
 </table>
