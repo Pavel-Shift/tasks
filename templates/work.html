@@ -27,8 +27,8 @@
 {% for task in tasks_work %}
 <tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td>
     <td> <form action="/in_done" method=post>
-        <textarea name=task_text rows=1 cols=20 required></textarea>
-        <input type=submit value={{ task.id }}>
+        <textarea name=done_text rows=3 cols=30 required>{{task.done}}</textarea>
+        <button name="in_done" type="submit" value={{ task.id }}>Сохранить</button>
         </form>
     </td>
 

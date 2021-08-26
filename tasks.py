@@ -141,7 +141,7 @@ def new_task():
         ids = count()
         conn = engine.connect()
         conn.execute(tasks.insert().values(id = ids +1, task = request.form['task_text'], status = 'Новая',
-                                           fio = '', create = datetime.datetime.now()))
+                                           fio = '', done ='', create = datetime.datetime.now()))
         return redirect(url_for('show'))
     else:
         return render_template('login.html')
@@ -180,6 +180,9 @@ def in_cancel():
 @app.route('/in_done', methods=['POST'])
 def in_done():
     if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(tasks.update().where(tasks.c.id == request.form['in_done']).
+                     values(done= request.form['done_text']))
         return redirect(url_for('work'))
     else:
         return render_template('login.html')
