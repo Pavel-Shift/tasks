@@ -25,7 +25,13 @@
 
    </tr>
 {% for task in tasks_work %}
-<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.done }} </td>
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td>
+    <td> <form> action="/in_done" method=post>
+        <textarea name=task_text rows=1 cols=20 required></textarea>
+        <input type=submit value={{ task.id }}>
+        </form>
+    </td>
+
     <td> {{ task.fio }} </td> <td>{{ task.create.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.work.strftime('%d.%m.%Y %H:%M') }} </td>
 
 <td>

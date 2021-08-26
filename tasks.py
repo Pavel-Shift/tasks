@@ -176,5 +176,13 @@ def in_cancel():
     else:
         return render_template('login.html')
 
+
+@app.route('/in_done', methods=['POST'])
+def in_done():
+    if session.get('logged_in'):
+        return redirect(url_for('work'))
+    else:
+        return render_template('login.html')
+
 if __name__ == '__main__':
     app.run()
