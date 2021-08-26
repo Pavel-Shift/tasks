@@ -25,7 +25,7 @@
 
    </tr>
 {% for task in tasks_work %}
-<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.work }} </td>
+<tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td> {{ task.done }} </td>
     <td> {{ task.fio }} </td> <td>{{ task.create.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ task.work.strftime('%d.%m.%Y %H:%M') }} </td>
 
 <td>
