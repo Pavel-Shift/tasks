@@ -142,7 +142,7 @@ def new_task():
         conn = engine.connect()
         conn.execute(tasks.insert().values(id = ids +1, task = request.form['task_text'], status = 'Новая',
                                            fio = '', done ='', create = datetime.datetime.now()))
-        return redirect(url_for('show'))
+        return redirect(url_for('new'))
     else:
         return render_template('login.html')
 
@@ -152,7 +152,7 @@ def in_work():
         conn = engine.connect()
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_work']).
                      values(fio= session['login'], status= 'В работе' ,work=datetime.datetime.now() ) )
-        return redirect(url_for('show'))
+        return redirect(url_for('open'))
     else:
         return render_template('login.html')
 
@@ -162,7 +162,7 @@ def in_complete():
         conn = engine.connect()
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_complete']).
                      values(status= 'Выполнена',complete=datetime.datetime.now() ) )
-        return redirect(url_for('show'))
+        return redirect(url_for('work'))
     else:
         return render_template('login.html')
 
@@ -172,7 +172,7 @@ def in_cancel():
         conn = engine.connect()
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_cancel']).
                      values(status= 'Отменена'), complete=datetime.datetime.now() )
-        return redirect(url_for('show'))
+        return redirect(url_for('work'))
     else:
         return render_template('login.html')
 
