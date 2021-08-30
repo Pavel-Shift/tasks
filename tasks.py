@@ -79,8 +79,7 @@ def average():
         aver = aver / n_task
     else:
         aver = 0
-    print(aver)
-    return aver // 60
+    return aver // 3600
 
 @app.route('/show')
 def show():
