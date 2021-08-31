@@ -9,6 +9,7 @@ meta = MetaData()
 
 works = Table('works', meta,
     Column('id', Integer, primary_key = True),
+    Column('month', String),
     Column('fio', String),
     Column('date_work', Integer),
     Column('hour_start', Integer),
@@ -170,7 +171,7 @@ def new_work_task():
     if session.get('logged_in'):
         ids_works = count_works()
         conn = engine.connect()
-        conn.execute(works.insert().values(id = ids_works +1,  status = 'Новая',
+        conn.execute(works.insert().values(id = ids_works +1,  status = 'Новая',  month= request.form['month'],
                                            date_work = request.form['date_work'], hour_start = request.form['hour_start'],
                                            hour_end = request.form['hour_end'], comment = request.form['comment'],
                                           fio = request.form['fio'], done ='', create = datetime.datetime.now()))

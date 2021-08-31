@@ -13,6 +13,7 @@
    <caption>Новые переработки, не взятые в работу</caption>
    <tr>
     <th>ID</th>
+    <th>Месяц</th>
        <th>ФИО</th>
     <th>Число</th>
     <th>Час начала</th>
@@ -22,7 +23,7 @@
     <th>Создание</th>
    </tr>
 {% for work in open_work %}
-<tr> <td>{{ work.id }} </td> <td> {{ work.fio }} </td> <td> {{ work.date_work }} </td>
+<tr> <td>{{ work.id }} </td> <td>{{ work.month }} </td> <td> {{ work.fio }} </td> <td> {{ work.date_work }} </td>
      <td>{{ work.hour_start }} </td> <td> {{ work.hour_end }} </td> <td> {{ work.comment }} </td>
     <td>{{ work.status }} </td>
     <td>{{ work.create.strftime('%d.%m.%Y %H:%M') }} </td>
