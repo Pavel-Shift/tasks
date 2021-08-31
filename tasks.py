@@ -168,10 +168,12 @@ def new_task():
 def new_work_task():
     if session.get('logged_in'):
         ids_works = count_works()
+        date_start_t = request.form['date_start'].replace('T',' ')
+        date_stop_t = request.form['date_stop'].replace('T',' ')
         conn = engine.connect()
         conn.execute(works.insert().values(id = ids_works +1,  status = 'Новая',
-                                           date_start = request.form['date_start'],
-                                           date_stop = request.form['date_stop'], comment = request.form['comment'],
+                                           date_start = date_start_t,
+                                           date_stop = date_stop_t, comment = request.form['comment'],
                                           fio = request.form['fio'], done ='', create = datetime.datetime.now()))
         return redirect(url_for('new_work'))
     else:
