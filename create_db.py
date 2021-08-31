@@ -7,11 +7,9 @@ meta = MetaData()
 
 works = Table('works', meta,
     Column('id', Integer, primary_key = True),
-    Column('month', String),
     Column('fio', String),
-    Column('date_work', Integer),
-    Column('hour_start', Integer),
-    Column('hour_end', Integer),
+    Column('date_start', Integer),
+    Column('date_stop', Integer),
     Column('comment', String),
     Column('status', String),
     Column('done', String),

@@ -12,13 +12,10 @@
 Создание новой переработки
 <br>
     <form action="{{ url_for('new_work_task') }}" method=post>
-Месяц  <input type="month" name="month" value="2021-09"><br>
-Тест  <input type="datetime-local" name="month" value="2021-09"><br>
 ФИО  <textarea name=fio rows=1 cols=30 required></textarea><br>
-Число  <input type="number" min =0 max =31 value = 1 name =date_work><br>
-Час начала  <input type="number" min =0 max =23 value = 9 name =hour_start><br>
-Час завершения  <input type="number" min =0 max =23 value = 18 name =hour_end><br>
-Описание  <textarea name=comment rows=1 cols=30 required></textarea><br>
+Начало  <input type="datetime-local" name="date_start" value="2021-09-01T09:00"><br>
+Завершение  <input type="datetime-local" name="date_stop" value="2021-09-01T18:00"><br>
+Описание  <textarea name=comment rows=3 cols=30 required></textarea><br>
 <br>
         <button name="new_work_task" type="submit" value=>Создать</button>
 
