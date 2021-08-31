@@ -6,6 +6,21 @@ import datetime
 engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
 
 meta = MetaData()
+
+works = Table('works', meta,
+    Column('id', Integer, primary_key = True),
+    Column('fio', String),
+    Column('date_work', Integer),
+    Column('hour_start', Integer),
+    Column('hour_end', Integer),
+    Column('comment', String),
+    Column('status', String),
+    Column('done', String),
+    Column('create', DateTime),
+    Column('work', DateTime),
+    Column('complete', DateTime),
+              )
+
 users = Table('users', meta,
               Column('login', String, primary_key=True),
               Column('password', String),
@@ -64,6 +79,11 @@ def stat(task_status):
 def count():
     conn = engine.connect()
     s = tasks.select()
+    return len(conn.execute(s).fetchall())
+
+def count_works():
+    conn = engine.connect()
+    s = works.select()
     return len(conn.execute(s).fetchall())
 
 def average():
@@ -145,6 +165,29 @@ def new_task():
     else:
         return render_template('login.html')
 
+@app.route('/new_work_task', methods=['POST'])
+def new_work_task():
+    if session.get('logged_in'):
+        ids_works = count_works()
+        conn = engine.connect()
+        conn.execute(works.insert().values(id = ids_works +1,  status = 'Новая',
+                                           date_work = request.form['date_work'], hour_start = request.form['hour_start'],
+                                           hour_end = request.form['hour_end'], comment = request.form['comment'],
+                                          fio = request.form['fio'], done ='', create = datetime.datetime.now()))
+        return redirect(url_for('new_work'))
+    else:
+        return render_template('login.html')
+
+@app.route('/open_work')
+def open_work():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        s = works.select().where(works.c.status == 'Новая')
+        open_work = conn.execute(s)
+        return render_template('open_work.html', open_work = open_work, login = session['login'] )
+    else:
+        return render_template('login.html')
+
 @app.route('/in_work', methods=['POST'])
 def in_work():
     if session.get('logged_in'):
@@ -175,6 +218,16 @@ def in_cancel():
     else:
         return render_template('login.html')
 
+@app.route('/in_new', methods=['POST'])
+def in_new():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(tasks.update().where(tasks.c.id == request.form['in_new']).
+                     values(status= 'Новая'), complete=datetime.datetime.now() )
+        return redirect(url_for('work'))
+    else:
+        return render_template('login.html')
+
 
 @app.route('/in_done', methods=['POST'])
 def in_done():
@@ -183,6 +236,13 @@ def in_done():
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_done']).
                      values(done= request.form['done_text']))
         return redirect(url_for('work'))
+    else:
+        return render_template('login.html')
+
+@app.route('/new_work')
+def new_work():
+    if session.get('logged_in'):
+        return render_template('new_work.html', login = session['login'])
     else:
         return render_template('login.html')
 

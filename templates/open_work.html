@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<head>
+    <meta charset="UTF-8">
+    <title>Новые пераработки</title>
+</head>
+<body>
+Пользователь:  {{login}}
+<br>
+<br>
+  <table border="1">
+   <caption>Новые переработки, не взятые в работу</caption>
+   <tr>
+    <th>ID</th>
+       <th>ФИО</th>
+    <th>Число</th>
+    <th>Час начала</th>
+    <th>Час завершения</th>
+    <th>Комментарий</th>
+    <th>Статус</th>
+    <th>Создание</th>
+   </tr>
+{% for work in open_work %}
+<tr> <td>{{ work.id }} </td> <td> {{ work.fio }} </td> <td> {{ work.date_work }} </td>
+     <td>{{ work.hour_start }} </td> <td> {{ work.hour_end }} </td> <td> {{ work.comment }} </td>
+    <td>{{ work.status }} </td>
+    <td>{{ work.create.strftime('%d.%m.%Y %H:%M') }} </td>
+
+
+</tr>
+{% endfor %}
+</table>
+
+
+
+
+<br>
+<a href="{{ url_for('show')}}">Главная</a>
+</body>
+</html>

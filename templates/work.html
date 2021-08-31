@@ -22,7 +22,7 @@
        <th>Взято в работу</th>
        <th>Выполнить</th>
        <th>Отменить</th>
-
+       <th>В новые</th>
    </tr>
 {% for task in tasks_work %}
 <tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td>
@@ -45,6 +45,13 @@
         {% if login== task.fio  %}
      <form action="/in_cancel" method="post">
      <button name="in_cancel" type="submit" value={{ task.id }}>Отмена</button>
+</form>
+        {% endif %}
+ </td>
+    <td>
+        {% if login== task.fio  %}
+     <form action="/in_new" method="post">
+     <button name="in_new" type="submit" value={{ task.id }}>Новая</button>
 </form>
         {% endif %}
  </td>

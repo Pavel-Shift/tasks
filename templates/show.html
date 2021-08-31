@@ -22,6 +22,15 @@
      <li>Отменено: {{ids_cancel}} </li>
      <li>Среднее время выполнения выполненных задач: {{time}} (в часах) </li>
   </ul>
+<br>
+Переработки:
+<br>
+  <ul class="sidebar-nav">
+     <li><a href="{{ url_for('new_work') }}">Новая переработка</a> </li>
+      <li><a href="{{ url_for('open_work') }}">Новые переработки</a> </li>
+  </ul>
+<br>
+
 <a href="{{ url_for('logout')}}">Выход</a>
 </body>
 </html>
