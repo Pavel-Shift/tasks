@@ -2,8 +2,8 @@ from flask import Flask, request, session, redirect, url_for, render_template
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, or_
 import datetime
 
-#engine = create_engine('sqlite:///tasks.db', echo=True)
-engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
+engine = create_engine('sqlite:///tasks.db', echo=True)
+# engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
 
 meta = MetaData()
 
@@ -75,6 +75,11 @@ def stat(task_status):
     s = tasks.select().where(tasks.c.status == task_status)
     return  len(conn.execute(s).fetchall())
 
+def stat_works(task_status):
+    conn = engine.connect()
+    s = works.select().where(works.c.status == task_status)
+    return  len(conn.execute(s).fetchall())
+
 def count():
     conn = engine.connect()
     s = tasks.select()
@@ -104,15 +109,23 @@ def average():
 def show():
     if session.get('logged_in'):
         ids = count()
+        ids_works = count_works()
         ids_new = stat('Новая')
+        ids_new_works = stat_works('Новая')
         ids_work = stat('В работе')
+        ids_work_works = stat_works('В работе')
         ids_complete = stat('Выполнена')
+        ids_work_complete = stat_works('Выполнена')
         ids_cancel = stat('Отменена')
+        ids_work_cancel = stat_works('Отменена')
         ids_arhiv = ids_complete + ids_cancel
+        ids_arhiv_works = ids_work_complete + ids_work_cancel
         time = average()
 
-        return render_template('show.html', ids = ids, ids_new = ids_new, ids_work = ids_work, ids_arhiv = ids_arhiv,
-                               ids_complete = ids_complete, ids_cancel = ids_cancel, time = time, login = session['login']  )
+        return render_template('show.html', ids = ids, ids_new = ids_new, ids_work = ids_work, ids_works = ids_works, ids_arhiv = ids_arhiv,
+                               ids_complete = ids_complete, ids_cancel = ids_cancel, time = time, ids_new_works = ids_new_works,
+                               ids_work_works=ids_work_works, ids_arhiv_works = ids_arhiv_works,
+                               login = session['login']  )
     else:
         return render_template('login.html')
 
@@ -136,6 +149,16 @@ def work():
     else:
         return render_template('login.html')
 
+@app.route('/work_work')
+def work_work():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        s = works.select().where(works.c.status == 'В работе')
+        works_work = conn.execute(s)
+        return render_template('work_work.html', works_work = works_work, login = session['login'] )
+    else:
+        return render_template('login.html')
+
 @app.route('/arhiv')
 def arhiv():
     if session.get('logged_in'):
@@ -143,6 +166,16 @@ def arhiv():
         s = tasks.select().where(or_(tasks.c.status == 'Выполнена', tasks.c.status == 'Отменена'))
         tasks_arhiv = conn.execute(s)
         return render_template('arhiv.html', tasks_arhiv = tasks_arhiv, login = session['login'])
+    else:
+        return render_template('login.html')
+
+@app.route('/work_arhiv')
+def work_arhiv():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        s = works.select().where(or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
+        works_arhiv = conn.execute(s)
+        return render_template('work_arhiv.html', works_arhiv = works_arhiv, login = session['login'])
     else:
         return render_template('login.html')
 
@@ -199,6 +232,16 @@ def in_work():
     else:
         return render_template('login.html')
 
+@app.route('/in_work_work', methods=['POST'])
+def in_work_work():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(works.update().where(works.c.id == request.form['in_work_work']).
+                     values(fio= session['login'], status= 'В работе' ,work=datetime.datetime.now() ) )
+        return redirect(url_for('open_work'))
+    else:
+        return render_template('login.html')
+
 @app.route('/in_complete', methods=['POST'])
 def in_complete():
     if session.get('logged_in'):
@@ -206,6 +249,16 @@ def in_complete():
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_complete']).
                      values(status= 'Выполнена',complete=datetime.datetime.now() ) )
         return redirect(url_for('work'))
+    else:
+        return render_template('login.html')
+
+@app.route('/in_work_complete', methods=['POST'])
+def in_work_complete():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(works.update().where(works.c.id == request.form['in_work_complete']).
+                     values(status= 'Выполнена',complete=datetime.datetime.now() ) )
+        return redirect(url_for('work_work'))
     else:
         return render_template('login.html')
 
@@ -219,6 +272,16 @@ def in_cancel():
     else:
         return render_template('login.html')
 
+@app.route('/in_work_cancel', methods=['POST'])
+def in_work_cancel():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(works.update().where(works.c.id == request.form['in_work_cancel']).
+                     values(status= 'Отменена'), complete=datetime.datetime.now() )
+        return redirect(url_for('work_work'))
+    else:
+        return render_template('login.html')
+
 @app.route('/in_new', methods=['POST'])
 def in_new():
     if session.get('logged_in'):
@@ -226,6 +289,16 @@ def in_new():
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_new']).
                      values(status= 'Новая'), complete=datetime.datetime.now() )
         return redirect(url_for('work'))
+    else:
+        return render_template('login.html')
+
+@app.route('/in_work_new', methods=['POST'])
+def in_work_new():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(works.update().where(works.c.id == request.form['in_work_new']).
+                     values(status= 'Новая'), complete=datetime.datetime.now() )
+        return redirect(url_for('work_work'))
     else:
         return render_template('login.html')
 
@@ -237,6 +310,16 @@ def in_done():
         conn.execute(tasks.update().where(tasks.c.id == request.form['in_done']).
                      values(done= request.form['done_text']))
         return redirect(url_for('work'))
+    else:
+        return render_template('login.html')
+
+@app.route('/in_work_done', methods=['POST'])
+def in_work_done():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(works.update().where(works.c.id == request.form['in_work_done']).
+                     values(done= request.form['done_text']))
+        return redirect(url_for('work_work'))
     else:
         return render_template('login.html')
 

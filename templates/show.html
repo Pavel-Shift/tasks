@@ -15,7 +15,7 @@
 Всего задач: {{ids}}
 <br>
   <ul class="sidebar-nav">
-     <li><a href="{{ url_for('open') }}">Новые задачи:</a>  {{ids_new}} </li>
+     <li><a href="{{ url_for('open') }}">Новые:</a>  {{ids_new}} </li>
      <li><a href="{{ url_for('work') }}">В работе:</a>  {{ids_work}} </li>
      <li><a href="{{ url_for('arhiv')}}">Архив:</a>  {{ids_arhiv}} </li>
      <li>Выполнено: {{ids_complete}} </li>
@@ -23,11 +23,13 @@
      <li>Среднее время выполнения выполненных задач: {{time}} (в часах) </li>
   </ul>
 <br>
-Переработки:
+Переработки: {{ids_works}}
 <br>
   <ul class="sidebar-nav">
-     <li><a href="{{ url_for('new_work') }}">Создать переработку</a> </li>
-      <li><a href="{{ url_for('open_work') }}">Новые переработки</a> </li>
+     <li><a href="{{ url_for('new_work') }}">Создать</a> </li>
+     <li><a href="{{ url_for('open_work') }}">Новые:</a> {{ids_new_works}} </li>
+      <li><a href="{{ url_for('work_work') }}">В работе:</a> {{ids_work_works}} </li>
+      <li><a href="{{ url_for('work_arhiv')}}">Архив:</a>  {{ids_arhiv_works}} </li>
   </ul>
 <br>
 

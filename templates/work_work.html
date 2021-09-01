@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<head>
+    <meta charset="UTF-8">
+    <title>Переработки в работе</title>
+</head>
+<body>
+Пользователь:  {{login}}
+<br>
+<br>
+<table>
+  <table border="1">
+   <caption>Переработки взятые в работу</caption>
+   <tr>
+    <th>ID</th>
+    <th>ФИО</th>
+    <th>Начало</th>
+    <th>Завершение</th>
+    <th>Комментарий</th>
+    <th>Статус</th>
+    <th>Решение</th>
+       <th>Создание</th>
+       <th>Взято в работу</th>
+       <th>Выполнить</th>
+       <th>Отменить</th>
+       <th>В новые</th>
+   </tr>
+{% for work in works_work %}
+<tr> <td>{{ work.id }} </td> <td> {{ work.fio }} </td>
+    <td>{{ work.date_start }} </td> <td> {{ work.date_stop }} </td> <td> {{ work.comment }} </td>
+
+    <td> {{ work.status }} </td>
+    <td> <form action="/in_work_done" method=post>
+        <textarea name=done_text rows=3 cols=30 required>{{work.done}}</textarea>
+        <button name="in_work_done" type="submit" value={{ work.id }}>Сохранить</button>
+        </form>
+    </td>
+
+    <td>{{ work.create.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ work.work.strftime('%d.%m.%Y %H:%M') }} </td>
+
+<td>
+     {% if login== work.fio  %}
+     <form action="/in_work_complete" method="post">
+     <button name="in_work_complete" type="submit" value={{ work.id }}>Выполнено</button>
+    </form>
+    {% endif %}
+</td>
+    <td>
+        {% if login== work.fio  %}
+     <form action="/in_work_cancel" method="post">
+     <button name="in_work_cancel" type="submit" value={{ work.id }}>Отмена</button>
+</form>
+        {% endif %}
+ </td>
+    <td>
+        {% if login== work.fio  %}
+     <form action="/in_work_new" method="post">
+     <button name="in_work_new" type="submit" value={{ work.id }}>Новая</button>
+</form>
+        {% endif %}
+ </td>
+</tr>
+{% endfor %}
+</table>
+    <br>
+<a href="{{ url_for('show')}}">Главная</a>
+</body>
+</html>

@@ -19,21 +19,22 @@ works = Table('works', meta,
               )
 
 
-tasks = Table('tasks', meta,
-    Column('id', Integer, primary_key = True),
-    Column('task', String),
-    Column('status', String),
-    Column('fio', String),
-    Column('create', DateTime),
-    Column('work', DateTime),
-    Column('complete', DateTime),
-    Column('done', String),
-)
+#tasks = Table('tasks', meta,
+#    Column('id', Integer, primary_key = True),
+#    Column('task', String),
+#    Column('status', String),
+#    Column('fio', String),
+#    Column('create', DateTime),
+#    Column('work', DateTime),
+#    Column('complete', DateTime),
+#    Column('done', String),
+#)
 
-users = Table('users', meta,
-    Column('login', String, primary_key = True),
-    Column('password', String),
-)
+#users = Table('users', meta,
+#    Column('login', String, primary_key = True),
+#    Column('password', String),
+#)
+
 
 meta.create_all(engine)
 

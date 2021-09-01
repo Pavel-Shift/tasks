@@ -14,18 +14,23 @@
    <tr>
     <th>ID</th>
        <th>ФИО</th>
-    <th>Число</th>
     <th>Начало</th>
+    <th>Завершение</th>
     <th>Комментарий</th>
     <th>Статус</th>
     <th>Создание</th>
+    <th>Взять в работу</th>
    </tr>
 {% for work in open_work %}
 <tr> <td>{{ work.id }} </td> <td> {{ work.fio }} </td>
      <td>{{ work.date_start }} </td> <td> {{ work.date_stop }} </td> <td> {{ work.comment }} </td>
     <td>{{ work.status }} </td>
     <td>{{ work.create.strftime('%d.%m.%Y %H:%M') }} </td>
-
+    <td>
+     <form action="/in_work_work" method="post">
+     <button name="in_work_work" type="submit" value={{ work.id }}>В работу</button>
+    </form>
+    </td>
 
 </tr>
 {% endfor %}
