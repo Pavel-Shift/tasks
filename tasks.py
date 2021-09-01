@@ -2,8 +2,8 @@ from flask import Flask, request, session, redirect, url_for, render_template
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, or_
 import datetime
 
-engine = create_engine('sqlite:///tasks.db', echo=True)
-# engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
+#engine = create_engine('sqlite:///tasks.db', echo=True)
+engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
 
 meta = MetaData()
 

@@ -5,18 +5,18 @@ engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed
 
 meta = MetaData()
 
-works = Table('works', meta,
-    Column('id', Integer, primary_key = True),
-    Column('fio', String),
-    Column('date_start', String),
-    Column('date_stop', String),
-    Column('comment', String),
-    Column('status', String),
-    Column('done', String),
-    Column('create', DateTime),
-    Column('work', DateTime),
-    Column('complete', DateTime),
-              )
+#works = Table('works', meta,
+#    Column('id', Integer, primary_key = True),
+#    Column('fio', String),
+#    Column('date_start', String),
+#    Column('date_stop', String),
+#    Column('comment', String),
+#    Column('status', String),
+#    Column('done', String),
+#    Column('create', DateTime),
+#    Column('work', DateTime),
+#    Column('complete', DateTime),
+#              )
 
 
 #tasks = Table('tasks', meta,
@@ -30,10 +30,10 @@ works = Table('works', meta,
 #    Column('done', String),
 #)
 
-#users = Table('users', meta,
-#    Column('login', String, primary_key = True),
-#    Column('password', String),
-#)
+users = Table('users', meta,
+    Column('login', String, primary_key = True),
+    Column('password', String),
+)
 
 
 meta.create_all(engine)
