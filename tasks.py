@@ -9,6 +9,7 @@ meta = MetaData()
 
 works = Table('works', meta,
     Column('id', Integer, primary_key = True),
+    Column('worker', String),
     Column('fio', String),
     Column('date_start', String),
     Column('date_stop', String),
@@ -207,7 +208,7 @@ def new_work_task():
         conn.execute(works.insert().values(id = ids_works +1,  status = 'Новая',
                                            date_start = date_start_t,
                                            date_stop = date_stop_t, comment = request.form['comment'],
-                                          fio = request.form['fio'], done ='', create = datetime.datetime.now()))
+                                          worker = request.form['worker'], done ='', create = datetime.datetime.now()))
         return redirect(url_for('new_work'))
     else:
         return render_template('login.html')
@@ -237,7 +238,7 @@ def in_work_work():
     if session.get('logged_in'):
         conn = engine.connect()
         conn.execute(works.update().where(works.c.id == request.form['in_work_work']).
-                     values(fio= session['login'], status= 'В работе' ,work=datetime.datetime.now() ) )
+                     values(fio=session['login'], status= 'В работе' ,work=datetime.datetime.now() ) )
         return redirect(url_for('open_work'))
     else:
         return render_template('login.html')

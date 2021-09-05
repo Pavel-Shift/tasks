@@ -7,7 +7,7 @@ con = psycopg2.connect(dbname='d297cli1t1889p', user='xcnhbtjxnnbfuu',
 
 
 cur = con.cursor()
-cur.execute("DROP TABLE USERS")
+cur.execute("DROP TABLE WORKS")
 
 con.commit()
 con.close()

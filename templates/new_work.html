@@ -12,7 +12,7 @@
 Создание новой переработки
 <br>
     <form action="{{ url_for('new_work_task') }}" method=post>
-ФИО  <textarea name=fio rows=1 cols=30 required></textarea><br>
+ФИО  <textarea name=worker rows=1 cols=30 required></textarea><br>
 Начало  <input type="datetime-local" name="date_start" value="2021-09-01T09:00"><br>
 Завершение  <input type="datetime-local" name="date_stop" value="2021-09-01T18:00"><br>
 Описание  <textarea name=comment rows=3 cols=30 required></textarea><br>
