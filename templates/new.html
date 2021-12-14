@@ -11,12 +11,15 @@
 <br>
 Создание новой задачи
 <br>
+<br>
     <form action="{{ url_for('new_task') }}" method=post>
 
         Введите описание задачи:
           <br>
-          <textarea name=task_text rows=7 cols=33 required></textarea>
+        <br>
+          <textarea name=task_text rows=7 cols=40 required></textarea>
           <br>
+        <br>
         <input type=submit value=Создать>
     </form>
 <br>
