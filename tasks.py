@@ -86,21 +86,6 @@ def count_works():
     s = works.select()
     return len(conn.execute(s).fetchall())
 
-def average():
-    conn = engine.connect()
-    s = tasks.select().where(tasks.c.status == 'Выполнена')
-    tasks_complete = conn.execute(s)
-    aver = 0
-    n_task = 0
-    for task in tasks_complete:
-        aver = aver + task.complete.timestamp() - task.create.timestamp()
-        n_task = n_task +1
-    if n_task > 0:
-        aver = aver / n_task
-    else:
-        aver = 0
-    return aver // 3600
-
 @app.route('/show')
 def show():
     if session.get('logged_in'):
@@ -115,10 +100,9 @@ def show():
         ids_work_cancel = stat_works('Отменена')
         ids_arhiv = ids_complete + ids_cancel
         ids_arhiv_works = ids_work_complete + ids_work_cancel
-        time = average()
 
         return render_template('show.html', ids_new = ids_new, ids_work = ids_work, ids_works = ids_works, ids_arhiv = ids_arhiv,
-                               ids_complete = ids_complete, ids_cancel = ids_cancel, time = time, ids_new_works = ids_new_works,
+                               ids_complete = ids_complete, ids_cancel = ids_cancel, ids_new_works = ids_new_works,
                                ids_work_works=ids_work_works, ids_arhiv_works = ids_arhiv_works,
                                login = session['login']  )
     else:
