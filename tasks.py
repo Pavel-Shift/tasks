@@ -81,29 +81,19 @@ def stat_works(task_status):
     s = works.select().where(works.c.status == task_status)
     return  len(conn.execute(s).fetchall())
 
-def count_works():
-    conn = engine.connect()
-    s = works.select()
-    return len(conn.execute(s).fetchall())
-
 @app.route('/show')
 def show():
     if session.get('logged_in'):
-        ids_works = count_works()
         ids_new = stat('Новая')
         ids_new_works = stat_works('Новая')
         ids_work = stat('В работе')
         ids_work_works = stat_works('В работе')
         ids_complete = stat('Выполнена')
         ids_work_complete = stat_works('Выполнена')
-        ids_cancel = stat('Отменена')
-        ids_work_cancel = stat_works('Отменена')
-        ids_arhiv = ids_complete + ids_cancel
-        ids_arhiv_works = ids_work_complete + ids_work_cancel
 
-        return render_template('show.html', ids_new = ids_new, ids_work = ids_work, ids_works = ids_works, ids_arhiv = ids_arhiv,
-                               ids_complete = ids_complete, ids_cancel = ids_cancel, ids_new_works = ids_new_works,
-                               ids_work_works=ids_work_works, ids_arhiv_works = ids_arhiv_works,
+        return render_template('show.html', ids_new = ids_new, ids_work = ids_work,
+                               ids_complete = ids_complete, ids_new_works = ids_new_works,
+                               ids_work_works=ids_work_works, ids_work_complete = ids_work_complete,
                                login = session['login']  )
     else:
         return render_template('login.html')
