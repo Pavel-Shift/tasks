@@ -11,11 +11,16 @@
 <br>
 Создание новой переработки
 <br>
-    <form action="{{ url_for('new_work_task') }}" method=post>
-ФИО  <textarea name=worker rows=1 cols=30 required></textarea><br>
-Начало  <input type="datetime-local" name="date_start" value="2021-12-01T09:00"><br>
-Завершение  <input type="datetime-local" name="date_stop" value="2021-12-01T18:00"><br>
-Описание  <textarea name=comment rows=3 cols=30 required></textarea><br>
+<br>
+<form action="{{ url_for('new_work_task') }}" method=post>
+ФИО  <textarea name=worker rows=1 cols=30 required></textarea>
+<br>
+<br>
+Начало  <input type="datetime-local" name="date_start" value="2021-12-01T09:00"><br> <br>
+Завершение  <input type="datetime-local" name="date_stop" value="2021-12-01T18:00"><br> <br>
+Описание <br> <br>
+    <textarea name=comment rows=5 cols=40 required></textarea><br>
+<br>
 <br>
         <button name="new_work_task" type="submit" value=>Создать</button>
 
