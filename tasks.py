@@ -76,6 +76,16 @@ def stat(task_status):
     s = tasks.select().where(tasks.c.status == task_status)
     return  len(conn.execute(s).fetchall())
 
+def count():
+    conn = engine.connect()
+    s = tasks.select()
+    return len(conn.execute(s).fetchall())
+
+def count_works():
+    conn = engine.connect()
+    s = works.select()
+    return len(conn.execute(s).fetchall())
+
 def stat_works(task_status):
     conn = engine.connect()
     s = works.select().where(works.c.status == task_status)
