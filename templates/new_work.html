@@ -16,8 +16,8 @@
 ФИО  <textarea name=worker rows=1 cols=30 required></textarea>
 <br>
 <br>
-Начало  <input id="start" type="datetime-local" name="date_start" value="2021-12-01T09:00" onchange = "stopstart()"><br> <br>
-Завершение  <input id="stop" type="datetime-local" name="date_stop" value="2021-12-01T18:00"><br> <br>
+Начало  <input id="start" type="datetime-local" name="date_start" onchange = "stopstart()"><br> <br>
+Завершение  <input id="stop" type="datetime-local" name="date_stop"><br> <br>
 Описание <br> <br>
     <textarea name=comment rows=5 cols=40 required></textarea><br>
 <br>
@@ -35,6 +35,28 @@ function stopstart() {
   dt = document.getElementById("start").value;
   document.getElementById("stop").value = dt.substring(0,11)+'18:00';
 }
+</script>
+
+<script type="text/javascript">
+    function zero_first_format(value)
+    {
+        if (value < 10)
+        {
+            value='0'+value;
+        }
+        return value;
+    }
+
+    function date_time()
+    {
+        var current_datetime = new Date();
+        var day = zero_first_format(current_datetime.getDate()-1);
+        var month = zero_first_format(current_datetime.getMonth()+1);
+        var year = current_datetime.getFullYear();
+        return year+"-"+month+"-"+day;
+    }
+    document.getElementById('start').value = date_time() +"T09:00";
+    document.getElementById('stop').value = date_time() +"T18:00";
 </script>
 
 </body>
