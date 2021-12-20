@@ -16,8 +16,8 @@
 ФИО  <textarea name=worker rows=1 cols=30 required></textarea>
 <br>
 <br>
-Начало  <input type="datetime-local" name="date_start" value="2021-12-01T09:00"><br> <br>
-Завершение  <input type="datetime-local" name="date_stop" value="2021-12-01T18:00"><br> <br>
+Начало  <input id="start" type="datetime-local" name="date_start" value="2021-12-01T09:00" onchange = stopstart()><br> <br>
+Завершение  <input id="stop" type="datetime-local" name="date_stop" value="2021-12-01T18:00"><br> <br>
 Описание <br> <br>
     <textarea name=comment rows=5 cols=40 required></textarea><br>
 <br>
@@ -29,5 +29,13 @@
 <br>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
+
+<script>
+function stopstart() {
+  dt = document.getElementById("start").value;
+  document.getElementById("stop").value = dt.substring(0,11)+'18:00';
+}
+</script>
+
 </body>
 </html>
