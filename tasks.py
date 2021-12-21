@@ -193,7 +193,7 @@ def new_work_task():
         date_start_t = request.form['date_start'].replace('T',' ')
         date_stop_t = request.form['date_stop'].replace('T',' ')
         conn = engine.connect()
-        conn.execute(works.insert().values(id = ids_works +1,  status = 'Новая',
+        conn.execute(works.insert().values(id = ids_works + 1,  status = 'Новая',
                                            date_start = date_start_t,
                                            date_stop = date_stop_t, comment = request.form['comment'],
                                           worker = request.form['worker'], done ='', create = datetime.datetime.now()))
@@ -315,7 +315,10 @@ def in_work_done():
 @app.route('/new_work')
 def new_work():
     if session.get('logged_in'):
-        return render_template('new_work.html', login = session['login'])
+        conn = engine.connect()
+        s = works.select().order_by(works.c.worker).distinct(works.c.worker)
+        open_work = conn.execute(s)
+        return render_template('new_work.html', open_work = open_work, login = session['login'])
     else:
         return render_template('login.html')
 

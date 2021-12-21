@@ -15,10 +15,9 @@
 <form action="{{ url_for('new_work_task') }}" method=post>
 ФИО  <input type="text" list="sotr" name=worker required />
 <datalist id="sotr">
-  <option></option>
-  <option>Глотов Павел</option>
-  <option>Котов Иван</option>
-  <option>Ислямов Дамир</option>
+    {% for work in open_work %}
+  <option>{{work.worker}}</option>
+    {% endfor %}
 </datalist>
 
 <br>
