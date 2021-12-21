@@ -2,7 +2,7 @@ from flask import Flask, request, session, redirect, url_for, render_template
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime, or_
 import datetime
 
-#engine = create_engine('sqlite:///tasks.db', echo=True)
+# engine = create_engine('sqlite:///tasks.db', echo=True)
 engine = create_engine("postgresql://xcnhbtjxnnbfuu:4f1961f672e831cf18722fb141ed5e304928a404cd2785ac0dc05bec11142f4d@ec2-34-255-134-200.eu-west-1.compute.amazonaws.com/d297cli1t1889p",echo = True)
 
 meta = MetaData()
@@ -44,15 +44,18 @@ app.config.update(dict(
     SECRET_KEY='secret key 2021',
 ))
 
+
 def auth(username_f, password_f):
     conn = engine.connect()
     s = users.select().where(users.c.login == username_f, users.c.password == password_f)
     result = len(conn.execute(s).fetchall())
     return result
 
+
 @app.route('/')
 def hello():
     return render_template('login.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -66,30 +69,36 @@ def login():
             return redirect(url_for('show'))
     return render_template('login.html', error=error)
 
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     return render_template('login.html')
 
+
 def stat(task_status):
     conn = engine.connect()
     s = tasks.select().where(tasks.c.status == task_status)
-    return  len(conn.execute(s).fetchall())
+    return len(conn.execute(s).fetchall())
+
 
 def count():
     conn = engine.connect()
     s = tasks.select()
     return len(conn.execute(s).fetchall())
 
+
 def count_works():
     conn = engine.connect()
     s = works.select()
     return len(conn.execute(s).fetchall())
 
+
 def stat_works(task_status):
     conn = engine.connect()
     s = works.select().where(works.c.status == task_status)
-    return  len(conn.execute(s).fetchall())
+    return len(conn.execute(s).fetchall())
+
 
 @app.route('/show')
 def show():
@@ -107,6 +116,7 @@ def show():
                                login = session['login']  )
     else:
         return render_template('login.html')
+
 
 @app.route('/open')
 def open():
@@ -170,7 +180,7 @@ def new_task():
     if session.get('logged_in'):
         ids = count()
         conn = engine.connect()
-        conn.execute(tasks.insert().values(id = ids +1, task = request.form['task_text'], status = 'Новая',
+        conn.execute(tasks.insert().values(id = ids + 1, task = request.form['task_text'], status = 'Новая',
                                            fio = '', done ='', create = datetime.datetime.now()))
         return redirect(url_for('new'))
     else:

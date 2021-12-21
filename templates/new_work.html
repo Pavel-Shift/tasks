@@ -13,7 +13,14 @@
 <br>
 <br>
 <form action="{{ url_for('new_work_task') }}" method=post>
-ФИО  <textarea name=worker rows=1 cols=30 required></textarea>
+ФИО  <input type="text" list="sotr" name=worker required />
+<datalist id="sotr">
+  <option></option>
+  <option>Глотов Павел</option>
+  <option>Котов Иван</option>
+  <option>Ислямов Дамир</option>
+</datalist>
+
 <br>
 <br>
 Начало  <input id="start" type="datetime-local" name="date_start" onchange = "stopstart()"><br> <br>
@@ -29,6 +36,7 @@
 <br>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
+
 
 <script>
 function stopstart() {
