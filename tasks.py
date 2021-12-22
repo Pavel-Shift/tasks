@@ -316,7 +316,7 @@ def in_work_done():
 def new_work():
     if session.get('logged_in'):
         conn = engine.connect()
-        s = works.select().order_by(works.c.worker).distinct(works.c.worker)
+        s = works.select().order_by(works.c.worker).distinct(works.c.worker).where(works.c.fio == session['login'])
         open_work = conn.execute(s)
         return render_template('new_work.html', open_work = open_work, login = session['login'])
     else:
