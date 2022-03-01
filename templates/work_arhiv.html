@@ -26,16 +26,26 @@
    </tr>
 
 {% for work in works_arhiv %}
+      {% if month() %}
 <tr> <td>{{ work.id }} </td> <td> {{ work.worker }} </td>
     <td>{{ work.date_start }} </td> <td> {{ work.date_stop }} </td> <td> {{ work.comment }} </td>
    <td> {{ work.status }} </td> <td>  {{work.done}}</td>
     <td>{{ work.create.strftime('%d.%m.%Y %H:%M') }} </td>
     <td>{{ work.work.strftime('%d.%m.%Y %H:%M') }} </td> <td>{{ work.complete.strftime('%d.%m.%Y %H:%M') }} </td>
 </tr>
+      {% endif %}
 {% endfor %}
 </table>
 <br>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
+
+<script>
+function month() {
+var d = new Date();
+if 3 == d.getMonth() + 1 { m = true}
+return m
+}
+</script>
 </body>
 </html>
