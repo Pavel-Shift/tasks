@@ -40,12 +40,14 @@
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
 
-<script>
-function month() {
-var d = new Date();
-if 3 == d.getMonth() + 1 { m = true}
-return m
+<script type="text/javascript">
+    function month() {
+        var d = new Date();
+        m = false
+           if 3 == d.getMonth() + 1 { m = true}
+    return m
 }
 </script>
+
 </body>
 </html>
