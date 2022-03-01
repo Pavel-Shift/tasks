@@ -26,7 +26,7 @@
    </tr>
 
 {% for work in works_arhiv %}
-      {% if month() %}
+      {% if my_month() %}
 <tr> <td>{{ work.id }} </td> <td> {{ work.worker }} </td>
     <td>{{ work.date_start }} </td> <td> {{ work.date_stop }} </td> <td> {{ work.comment }} </td>
    <td> {{ work.status }} </td> <td>  {{work.done}}</td>
@@ -41,7 +41,7 @@
 <a href="{{ url_for('show')}}">Главная</a>
 
 <script type="text/javascript">
-    function month() {
+    function my_month() {
         var d = new Date();
         m = false
            if 3 == d.getMonth() + 1 { m = true}
