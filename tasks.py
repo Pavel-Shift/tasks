@@ -148,6 +148,7 @@ def work_work():
     else:
         return render_template('login.html')
 
+# Архив задач
 @app.route('/arhiv')
 def arhiv():
     if session.get('logged_in'):
@@ -158,11 +159,14 @@ def arhiv():
     else:
         return render_template('login.html')
 
+
+# Архив переработок
 @app.route('/work_arhiv')
 def work_arhiv():
     if session.get('logged_in'):
         conn = engine.connect()
-        s = works.select().where(or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
+        month = datetime.datetime.now().month
+        s = works.select().where(int(works.c.date_start[5:6]) == month, or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
         works_arhiv = conn.execute(s)
         return render_template('work_arhiv.html', works_arhiv = works_arhiv, login = session['login'])
     else:
