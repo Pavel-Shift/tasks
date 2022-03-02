@@ -164,8 +164,10 @@ def arhiv():
 @app.route('/work_arhiv')
 def work_arhiv():
     if session.get('logged_in'):
-        month_current = '%-0' + str(datetime.datetime.now().month) + '-%'
-        print(month_current)
+        month_current = str(datetime.datetime.now().month)
+        if len(month_current) == 1:
+            month_current = '0' + month_current
+        month_current = '%-' + month_current + '-%'
         conn = engine.connect()
         s = works.select().where(works.c.date_start.like(month_current), or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
         works_arhiv = conn.execute(s)
