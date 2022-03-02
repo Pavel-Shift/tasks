@@ -48,7 +48,7 @@ conn.execute( users.insert(),[
     {'login':'Глотов', 'password':'a12345678'},
     {'login':'Аслуева', 'password':'a12345678'},
     {'login':'Князев', 'password':'a12345678'},
-    {'login':'Вагин', 'password':'a12345678'},
+    {'login':'Лучков', 'password':'a12345678'},
     {'login':'Ислямов', 'password':'a12345678'},
     {'login':'Котов', 'password':'a12345678'},
 ])
