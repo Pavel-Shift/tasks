@@ -177,7 +177,7 @@ def work_arhiv():
 
 # Архив переработок
 @app.route('/work_arhiv_prev')
-def work_arhiv():
+def work_arhiv_prev():
     if session.get('logged_in'):
         month_current = datetime.datetime.now().month - 1
         if month_current == 0:
