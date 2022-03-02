@@ -166,7 +166,7 @@ def work_arhiv():
     if session.get('logged_in'):
         month_current = datetime.datetime.now().month
         conn = engine.connect()
-        s = works.select().where(int(str(works.c.date_start)[6]) == month_current, or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
+        s = works.select().where(or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
         works_arhiv = conn.execute(s)
         return render_template('work_arhiv.html', works_arhiv = works_arhiv, login = session['login'])
     else:
