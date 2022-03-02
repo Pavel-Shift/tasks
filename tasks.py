@@ -175,6 +175,24 @@ def work_arhiv():
     else:
         return render_template('login.html')
 
+# Архив переработок
+@app.route('/work_arhiv_prev')
+def work_arhiv():
+    if session.get('logged_in'):
+        month_current = datetime.datetime.now().month - 1
+        if month_current == 0:
+            month_current = 12
+        month_current = str(month_current)
+        if len(month_current) == 1:
+            month_current = '0' + month_current
+        month_current = '%-' + month_current + '-%'
+        conn = engine.connect()
+        s = works.select().where(works.c.date_start.like(month_current), or_(works.c.status == 'Выполнена', works.c.status == 'Отменена'))
+        works_arhiv = conn.execute(s)
+        return render_template('work_arhiv.html', works_arhiv = works_arhiv, login = session['login'])
+    else:
+        return render_template('login.html')
+
 @app.route('/new')
 def new():
     if session.get('logged_in'):
