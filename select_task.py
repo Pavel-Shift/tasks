@@ -43,3 +43,26 @@ result = conn.execute(s)
 
 for row in result:
    print (row)
+
+print('')
+
+works = Table('works', meta,
+    Column('id', Integer, primary_key = True),
+    Column('worker', String),
+    Column('fio', String),
+    Column('date_start', String),
+    Column('date_stop', String),
+    Column('comment', String),
+    Column('status', String),
+    Column('done', String),
+    Column('create', DateTime),
+    Column('work', DateTime),
+    Column('complete', DateTime),
+              )
+
+s = works.select()
+
+result = conn.execute(s)
+
+for row in result:
+   print(row)
