@@ -18,6 +18,8 @@
      <li><a href="{{ url_for('arhiv')}}">Выполнено:</a>  {{ids_complete}} </li>
   </ul>
 
+{% if login != 'Гость'  %}
+
 Переработки: {{ids_works}}
 <br>
   <ul class="sidebar-nav">
@@ -28,6 +30,8 @@
       <li><a href="{{ url_for('work_arhiv_prev')}}">Выполнено в прошлом месяце</a>   </li>
   </ul>
 <br>
+
+{% endif %}
 
 <a href="{{ url_for('logout')}}">Выход</a>
 </body>
