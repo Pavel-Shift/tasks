@@ -22,9 +22,11 @@
 {% for task in tasks_open %}
 <tr> <td>{{ task.id }} </td> <td> {{ task.task }} </td> <td> {{ task.status }} </td> <td>{{ task.create.strftime('%d.%m.%Y %H:%M') }} </td>
     <td>
+        {% if login != 'Гость'  %}
      <form action="/in_work" method="post">
      <button name="in_work" type="submit" value={{ task.id }}>В работу</button>
     </form>
+        {% endif %}
  </td>
 
 </tr>
