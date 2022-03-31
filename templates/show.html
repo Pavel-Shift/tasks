@@ -20,7 +20,7 @@
 
 {% if login != 'Гость'  %}
 
-Переработки: {{ids_works}}
+Переработки:
 <br>
   <ul class="sidebar-nav">
      <li><a href="{{ url_for('new_work') }}">Создать</a> </li>
@@ -30,6 +30,8 @@
       <li><a href="{{ url_for('work_arhiv_prev')}}">Выполнено в прошлом месяце</a>   </li>
   </ul>
 <br>
+
+<a href="{{ url_for('show_users') }}">Пользователи</a>
 
 {% endif %}
 

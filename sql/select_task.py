@@ -19,50 +19,51 @@ tasks = Table('tasks', meta,
 users = Table('users', meta,
     Column('login', String, primary_key = True),
     Column('password', String),
+    Column('id', String),
 )
 
 conn = engine.connect()
 
-s = tasks.select()
-result = conn.execute(s)
+# s = tasks.select()
+# result = conn.execute(s)
 
-for row in result:
-   print (row)
+# for row in result:
+#   print (row)
 
-print('')
+#print('')
 
-s = select([func.count()]).select_from(tasks)
-result = conn.execute(s)
+#s = select([func.count()]).select_from(tasks)
+#result = conn.execute(s)
 
-print(result.fetchone()[0] )
+#print(result.fetchone()[0] )
 
-print('')
+#print('')
 s = users.select()
 
 result = conn.execute(s)
 
 for row in result:
-   print (row)
+    print(row)
 
 print('')
 
-works = Table('works', meta,
-    Column('id', Integer, primary_key = True),
-    Column('worker', String),
-    Column('fio', String),
-    Column('date_start', String),
-    Column('date_stop', String),
-    Column('comment', String),
-    Column('status', String),
-    Column('done', String),
-    Column('create', DateTime),
-    Column('work', DateTime),
-    Column('complete', DateTime),
-              )
+#works = Table('works', meta,
+#    Column('id', Integer, primary_key = True),
+#    Column('worker', String),
+#    Column('fio', String),
+#    Column('date_start', String),
+#    Column('date_stop', String),
+#    Column('comment', String),
+#    Column('status', String),
+#    Column('done', String),
+#    Column('create', DateTime),
+#    Column('work', DateTime),
+#    Column('complete', DateTime),
+#              )
 
-s = works.select()
+#s = works.select()
 
-result = conn.execute(s)
+#result = conn.execute(s)
 
-for row in result:
-   print(row)
+#for row in result:
+#   print(row)
