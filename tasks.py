@@ -24,6 +24,7 @@ works = Table('works', meta,
 users = Table('users', meta,
               Column('login', String, primary_key=True),
               Column('password', String),
+              Column('id', String)
               )
 
 tasks = Table('tasks', meta,
@@ -347,6 +348,17 @@ def new_work():
         return render_template('new_work.html', open_work = open_work, login = session['login'])
     else:
         return render_template('login.html')
+
+@app.route('/show_users')
+def show_users():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        s = users.select()
+        show_users_var = conn.execute(s)
+        return render_template('show_users.html', show_users_var = show_users_var, login = session['login'])
+    else:
+        return render_template('login.html')
+
 
 if __name__ == '__main__':
     app.run()
