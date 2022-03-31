@@ -359,5 +359,17 @@ def show_users():
     else:
         return render_template('login.html')
 
+
+@app.route('/update_user_id', methods=['POST'])
+def update_user_id():
+    if session.get('logged_in'):
+        conn = engine.connect()
+        conn.execute(users.update().where(users.c.id == request.form['update_user_id']).
+                     values(id = request.form['user_id']))
+        return redirect(url_for('show_users'))
+    else:
+        return render_template('login.html')
+
+
 if __name__ == '__main__':
     app.run()
