@@ -23,7 +23,7 @@
     <td> {{ user.password }} </td>
     <td>
         <form action="/update_user_id" method=post>
-        <input type="text" maxlength="9" name=user_id size="9" placeholder="{{ user.id }}">
+        <input type="text" maxlength="9" name=user_id size="9" value="{{ user.id }}">
         <button name="update_user_id" type="submit" value={{ user.login }}>Сохранить</button>
         </form>
      </td>
