@@ -364,7 +364,7 @@ def show_users():
 def update_user():
     if session.get('logged_in'):
         conn = engine.connect()
-        conn.execute(users.update().where(users.c.login == request.form['update_user_id']).
+        conn.execute(users.update().where(users.c.login == request.form['update_user']).
                      values(id = request.form['user_id'], password = request.form['user_password']))
         return redirect(url_for('show_users'))
     else:
