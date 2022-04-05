@@ -20,10 +20,10 @@
    </tr>
 {% for user in show_users_var %}
         <tr>
-    <td> {{ user.login }} </td>
-    <td> <input type="text" maxlength="16" name=user_password size="16" value="{{ user.password }}" form="update"/> </td>
-    <td> <input type="text" maxlength="9" name=user_id size="9" value="{{ user.id }}" form="update"/> </td>>
-    <td> <button name="update_user" type="submit" value={{ user.login }} form="update">Ок</button> </td>
+    <td> <input type="text" name="update_user" size="16" value={{ user.login }} form="update"> </td>
+    <td> <input type="text" maxlength="16" name=user_password size="16" value="{{ user.password }}" form="update"> </td>
+    <td> <input type="text" maxlength="9" name=user_id size="9" value="{{ user.id }}" form="update"> </td>>
+    <td> <input type="submit" value="Ok" form="update"> </td>>
         </tr>
 {% endfor %}
 </table>
