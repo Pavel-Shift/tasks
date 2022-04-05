@@ -21,9 +21,9 @@
 {% for user in show_users_var %}
         <tr>
     <td> {{ user.login }} </td>
-    <td> <input type="text" maxlength="16" name=user_password size="16" value="{{ user.password }}" form="update"> </td>
-    <td> <input type="text" maxlength="9" name=user_id size="9" value="{{ user.id }}" form="update"> </td>>
-    <td> <input type="submit" name="update_user" value={{ user.login }} form="update"> </td>
+    <td> <input type="text" maxlength="16" name=user_password size="16" value="{{ user.password }}" form="update"/> </td>
+    <td> <input type="text" maxlength="9" name=user_id size="9" value="{{ user.id }}" form="update"/> </td>>
+    <td> <button name="update_user" type="submit" value={{ user.login }}>Ок</button> </td>
         </tr>
 {% endfor %}
 </table>
@@ -31,6 +31,5 @@
 <a href="{{ url_for('show')}}">Главная</a>
 <br>
 <br>
-Версия 12
 </body>
 </html>
