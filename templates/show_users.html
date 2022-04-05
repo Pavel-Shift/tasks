@@ -9,7 +9,6 @@
 Пользователь:  {{login}}
 <br>
 <br>
-<form action="/update_user" method="post" id="update"> </form>
 <table border="1">
 <caption>Пользователи</caption>
    <tr>
@@ -20,6 +19,7 @@
    </tr>
 {% for user in show_users_var %}
         <tr>
+     <form action="/update_user" method="post" id="update"> </form>
     <td> <input type="text" name="update_user" value="{{ user.login }}" form="update" readonly> </td>
     <td> <input type="text" maxlength="16" name="user_password" value="{{ user.password }}" form="update"> </td>
     <td> <input type="text" maxlength="9" name="user_id"  value="{{ user.id }}" form="update"> </td>>
