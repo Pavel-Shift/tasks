@@ -18,19 +18,20 @@
     <th>Сохранить</th>
    </tr>
 {% for user in show_users_var %}
+    <form id="update" action="/update_user" method=post>
         <tr>
     <td> {{ user.login }} </td>
-            <form id="update" action="/update_user" method=post> </form>
     <td> <input type="text" maxlength="16" name=user_password size="16" value="{{ user.password }}" form="update"> </td>
     <td> <input type="text" maxlength="9" name=user_id size="9" value="{{ user.id }}" form="update"> </td>>
     <td> <button name="update_user" type="submit" value={{ user.login }} form="update">Ок</button> </td>
         </tr>
+         </form>
 {% endfor %}
 </table>
 <br>
 <a href="{{ url_for('show')}}">Главная</a>
 <br>
 <br>
-Версия 17
+Версия 18
 </body>
 </html>
