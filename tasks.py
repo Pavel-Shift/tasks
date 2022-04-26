@@ -380,8 +380,8 @@ def new_work():
 @app.route('/new_user_add', methods=['POST'])
 def new_work_task():
     if session.get('logged_in'):
-        ids_works = count_works()
-        conn = engine.connect()
+#        ids_works = count_works()
+#        conn = engine.connect()
 #        conn.execute(works.insert().values(id = ids_works + 1,  status = 'Новая',
 #                                           date_start = date_start_t,
 #                                           date_stop = date_stop_t, comment = request.form['comment'],
