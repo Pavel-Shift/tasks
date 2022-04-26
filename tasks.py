@@ -370,6 +370,25 @@ def update_user():
     else:
         return render_template('login.html')
 
+@app.route('/new_user')
+def new_work():
+    if session.get('logged_in'):
+        return render_template('new_user.html', login = session['login'])
+    else:
+        return render_template('login.html')
+
+@app.route('/new_user_add', methods=['POST'])
+def new_work_task():
+    if session.get('logged_in'):
+        ids_works = count_works()
+        conn = engine.connect()
+#        conn.execute(works.insert().values(id = ids_works + 1,  status = 'Новая',
+#                                           date_start = date_start_t,
+#                                           date_stop = date_stop_t, comment = request.form['comment'],
+#                                          worker = request.form['worker'], done ='', create = datetime.datetime.now()))
+        return redirect(url_for('show_users'))
+    else:
+        return render_template('login.html')
 
 if __name__ == '__main__':
     app.run()

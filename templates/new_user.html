@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<head>
+    <meta charset="UTF-8">
+    <title>Новый пользователь</title>
+</head>
+<body>
+Пользователь:  {{login}}
+<br>
+<br>
+Создание нового пользователя
+<br>
+<br>
+   <form action="{{ url_for('new_user_add') }}" method=post>
+        <br>
+        <br>
+        <input type="text" name="user_fio">
+        <input type="text" name="user_password">
+        <input type="text" name="user_id_telegram">
+        <br>
+        <br>
+        <input type=submit value=Создать>
+    </form>
+
+</body>
+</html>

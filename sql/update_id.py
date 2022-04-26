@@ -7,7 +7,7 @@ con = psycopg2.connect(dbname='d297cli1t1889p', user='xcnhbtjxnnbfuu',
 
 
 cur = con.cursor()
-cur.execute("UPDATE USERS SET ID = '370633969' WHERE login = 'Глотов'")
+cur.execute("UPDATE USERS SET login = 'Глотов Павел Алексеевич' WHERE login = 'Глотов'")
 
 con.commit()
 con.close()
